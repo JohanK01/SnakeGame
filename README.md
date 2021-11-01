@@ -1,8 +1,8 @@
 # SnakeGame
 
-##objective 
+## objective 
 the taskt is to create a simple game and i chose to make snake with a halloween twist
-##TODO
+## TODO
 1. Create a background.
 2. Create some sort of barrier around the playing field.
 3. Create the snake/player.
