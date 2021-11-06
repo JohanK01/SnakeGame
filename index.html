@@ -26,6 +26,9 @@
                 update: update
             }
         };
+        var player;
+        var food;
+        var cursors;
 
         var game = new Phaser.Game(config);
 
@@ -35,31 +38,31 @@
             this.load.image('snake', 'assets/skull3.png');
             this.load.image('pumpkin', 'assets/pumpkin.png');
         }
-        var player;
-        var food;
+        
+
 
         function create() {
             //Creates and displays 
             this.add.image(400, 300, 'background');
 
-          
 
-            food = this.physics.add.staticGroup();
-            food.create(50, 250, 'pumpkin');
-            
-            
             player = this.physics.add.sprite(400, 300, 'snake');
             this.physics.add.collider(player, food);
 
+
+            food = this.physics.add.staticGroup();
+            food.create(50,250, 'pumpkin');
+            this.physics.add.overlap(player, food, collectFood, null, this);
            
+             
 
         }
 
         function update() {
             //controllers
             cursors = this.input.keyboard.createCursorKeys();
-            
-          
+
+
             if (cursors.left.isDown) { //left key
                 player.setVelocityX(-160);
                 //stop the player moving up or down
@@ -78,11 +81,11 @@
                 player.setVelocityY(160);
                 player.setVelocityX(0);
             }
-           
-
-        }
-       
         
+        } 
+            function collectFood(player, food) {
+                food.disableBody(true, true);
+         }
     </script>
 
 </body>
