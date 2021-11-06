@@ -33,43 +33,56 @@
             //Load in all the images and name them
             this.load.image('background', 'assets/graveyard3.png');
             this.load.image('snake', 'assets/skull3.png');
+            this.load.image('pumpkin', 'assets/pumpkin.png');
         }
-var player;
+        var player;
+        var food;
 
         function create() {
             //Creates and displays 
             this.add.image(400, 300, 'background');
 
+          
 
-            player = this.physics.add.sprite(400, 300, 'snake');
-            player.body.setSize(100, 50)
+            food = this.physics.add.staticGroup();
+            food.create(50, 250, 'pumpkin');
             
+            
+            player = this.physics.add.sprite(400, 300, 'snake');
+            this.physics.add.collider(player, food);
+
+           
+
         }
 
         function update() {
             //controllers
             cursors = this.input.keyboard.createCursorKeys();
-            //player.body.velocity.setTo(0, 0);
+            
+          
             if (cursors.left.isDown) { //left key
                 player.setVelocityX(-160);
+                //stop the player moving up or down
                 player.setVelocityY(0);
-              
-            } 
-            else if  (cursors.right.isDown) { //right key
+
+            } else if (cursors.right.isDown) { //right key
                 player.setVelocityX(160);
                 player.setVelocityY(0);
-              
-            } 
-            else if  (cursors.up.isDown){ //up key
+
+            } else if (cursors.up.isDown) { //up key
                 player.setVelocityY(-160);
+                //stop the player moving left or right
                 player.setVelocityX(0);
-            } 
-            else if (cursors.down.isDown){ // down key
+
+            } else if (cursors.down.isDown) { // down key
                 player.setVelocityY(160);
                 player.setVelocityX(0);
             }
-            
+           
+
         }
+       
+        
     </script>
 
 </body>
