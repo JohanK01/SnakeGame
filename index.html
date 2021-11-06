@@ -29,6 +29,7 @@
         var player;
         var food;
         var cursors;
+        var standingWall;
 
         var game = new Phaser.Game(config);
 
@@ -37,24 +38,43 @@
             this.load.image('background', 'assets/graveyard3.png');
             this.load.image('snake', 'assets/skull3.png');
             this.load.image('pumpkin', 'assets/pumpkin.png');
+            this.load.image('wall', 'assets/platform.png')
+            this.load.image('standingWall', 'assets/standingPlat.png')
         }
-        
+
 
 
         function create() {
             //Creates and displays 
             this.add.image(400, 300, 'background');
-
+            //wall top and bottom
+            wall = this.physics.add.staticGroup();
+            wall.create(400, 0, 'wall').setScale(2).refreshBody();
+            wall.create(400, 600, 'wall').setScale(2).refreshBody();
+            //wall on sides
+            standingWall = this.physics.add.staticGroup();
+            standingWall.create(-20, 200, 'standingWall').setScale(2).refreshBody();
+            standingWall.create(820, 200, 'standingWall').setScale(2).refreshBody();
+            
+            
 
             player = this.physics.add.sprite(400, 300, 'snake');
             this.physics.add.collider(player, food);
 
-
-            food = this.physics.add.staticGroup();
-            food.create(50,250, 'pumpkin');
+            food = this.physics.add.group({
+                key: 'pumpkin',
+                repeat: 1,
+                setXY: {
+                    x: 52,
+                    y: 50,
+                    stepX: 70
+                }
+            });
+            this.physics.add.collider(player, standingWall);
+            this.physics.add.collider(player, wall);
             this.physics.add.overlap(player, food, collectFood, null, this);
-           
-             
+
+
 
         }
 
@@ -81,11 +101,12 @@
                 player.setVelocityY(160);
                 player.setVelocityX(0);
             }
-        
-        } 
-            function collectFood(player, food) {
-                food.disableBody(true, true);
-         }
+
+        }
+
+        function collectFood(player, food) {
+            food.disableBody(true, true);
+        }
     </script>
 
 </body>
