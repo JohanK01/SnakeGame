@@ -30,6 +30,8 @@
         var food;
         var cursors;
         var standingWall;
+        var length = 0;
+        var text;
 
         var game = new Phaser.Game(config);
 
@@ -55,32 +57,37 @@
             standingWall = this.physics.add.staticGroup();
             standingWall.create(-20, 200, 'standingWall').setScale(2).refreshBody();
             standingWall.create(820, 200, 'standingWall').setScale(2).refreshBody();
-            
-            
+
+            length = this.add.text(12, 8, 'Lenght: 0', {
+                fontSize: '32px',
+                fill: '#000'
+            });
 
             player = this.physics.add.sprite(400, 300, 'snake');
             this.physics.add.collider(player, food);
+            //controllers
+            cursors = this.input.keyboard.createCursorKeys();
 
-            food = this.physics.add.group({
+            foodStack = this.physics.add.group({
                 key: 'pumpkin',
                 repeat: 1,
                 setXY: {
-                    x: 52,
-                    y: 50,
+                    x: 100,
+                    y: 100,
                     stepX: 70
                 }
             });
+
             this.physics.add.collider(player, standingWall);
             this.physics.add.collider(player, wall);
-            this.physics.add.overlap(player, food, collectFood, null, this);
+            this.physics.add.overlap(player, foodStack, collectFood, null, this);
 
 
 
         }
 
         function update() {
-            //controllers
-            cursors = this.input.keyboard.createCursorKeys();
+
 
 
             if (cursors.left.isDown) { //left key
@@ -106,6 +113,17 @@
 
         function collectFood(player, food) {
             food.disableBody(true, true);
+
+            length += 1;
+            //text.setText('Length: ' + length);
+
+            if (foodStack.countActive(true) === 0) {
+                foodStack.children.iterate(function (child) {
+
+                    child.enableBody(true, child.x, 100, true, true);
+
+                });
+            }
         }
     </script>
 
