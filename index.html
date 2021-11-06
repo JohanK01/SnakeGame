@@ -32,9 +32,9 @@
         function preload() {
             //Load in all the images and name them
             this.load.image('background', 'assets/graveyard3.png');
-            this.load.image('snake', 'assets/skull.png');
+            this.load.image('snake', 'assets/skull3.png');
         }
-
+var player;
 
         function create() {
             //Creates and displays 
@@ -42,9 +42,8 @@
 
 
             player = this.physics.add.sprite(400, 300, 'snake');
-
-
-      
+            player.body.setSize(100, 50)
+            
         }
 
         function update() {
@@ -55,14 +54,17 @@
                 player.setVelocityX(-160);
 
               
-            } else if (cursors.right.isDown) { //right key
+            } 
+            else if  (cursors.right.isDown) { //right key
                 player.setVelocityX(160);
 
               
-            } if (cursors.up.isDown){ //up key
+            } 
+            else if  (cursors.up.isDown){ //up key
                 player.setVelocityY(-160);
 
-            } else if (cursors.down.isDown){ // down key
+            } 
+            else if (cursors.down.isDown){ // down key
                 player.setVelocityY(160);
             }
             
