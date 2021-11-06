@@ -49,23 +49,24 @@ var player;
         function update() {
             //controllers
             cursors = this.input.keyboard.createCursorKeys();
-           
+            //player.body.velocity.setTo(0, 0);
             if (cursors.left.isDown) { //left key
                 player.setVelocityX(-160);
-
+                player.setVelocityY(0);
               
             } 
             else if  (cursors.right.isDown) { //right key
                 player.setVelocityX(160);
-
+                player.setVelocityY(0);
               
             } 
             else if  (cursors.up.isDown){ //up key
                 player.setVelocityY(-160);
-
+                player.setVelocityX(0);
             } 
             else if (cursors.down.isDown){ // down key
                 player.setVelocityY(160);
+                player.setVelocityX(0);
             }
             
         }
