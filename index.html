@@ -58,7 +58,7 @@
             standingWall.create(-20, 200, 'standingWall').setScale(2).refreshBody();
             standingWall.create(820, 200, 'standingWall').setScale(2).refreshBody();
 
-            length = this.add.text(12, 8, 'Lenght: 0', {
+            text = this.add.text(12, 8, 'Lenght: 0', {
                 fontSize: '32px',
                 fill: '#000'
             });
@@ -115,7 +115,7 @@
             food.disableBody(true, true);
 
             length += 1;
-            //text.setText('Length: ' + length);
+            text.setText('Length: ' + length);
 
             if (foodStack.countActive(true) === 0) {
                 foodStack.children.iterate(function (child) {
