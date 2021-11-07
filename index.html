@@ -27,6 +27,8 @@
             }
         };
         var player;
+        var xRnd;
+        var yRnd;
         var food;
         var cursors;
         var standingWall;
@@ -57,31 +59,37 @@
             standingWall = this.physics.add.staticGroup();
             standingWall.create(-20, 200, 'standingWall').setScale(2).refreshBody();
             standingWall.create(820, 200, 'standingWall').setScale(2).refreshBody();
-
+            //text
             text = this.add.text(12, 8, 'Length: 0', {
                 fontSize: '32px',
                 fill: '#000'
             });
+
+            
+             xRnd = Phaser.Math.Between(100, 500);
+             yRnd = Phaser.Math.Between(50, 600);
+
+
             //player
             player = this.physics.add.sprite(400, 300, 'snake');
 
             //controllers
             cursors = this.input.keyboard.createCursorKeys();
-           
-            var anka = Phaser.Math.Between(20, 500);
-            
-             foodStack = this.physics.add.staticGroup({
-                
-                 key: 'pumpkin',
-                 repeat: 1,
-                 setXY: {
-                     x: anka,
-                     y: anka,
-                     stepX: anka
-                 }
-             });
 
-           
+
+
+            foodStack = this.physics.add.staticGroup({
+
+                key: 'pumpkin',
+                repeat: 0,
+                setXY: {
+                    x: xRnd,
+                    y: yRnd,
+                   // stepX: yRnd
+                }
+            });
+
+
 
             this.physics.add.collider(player, food);
             this.physics.add.collider(player, standingWall);
@@ -115,11 +123,13 @@
                 player.setVelocityX(0);
             }
 
+
         }
+
 
         function collectFood(player, food) {
             food.disableBody(true, true);
-
+            xRnd += 100;
             length += 1;
             text.setText('Length: ' + length);
 
@@ -129,9 +139,10 @@
                 foodStack.children.iterate(function (child) {
 
                     child.enableBody(true, child.x, 100, true, true);
-
+                    
                 });
             }
+
         }
     </script>
 
